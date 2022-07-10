@@ -84,6 +84,12 @@ export const store = Vuex.createStore({
       } else if (filterBy.value === 'completed') {
         const filterCompleted = todos.filter(todo => todo.isDone);
         return filterCompleted;
+      } else if (filterBy.value === 'complete') {
+        const indexes = todos.map((todo, idx) => (todo.isDone ? idx : '')).filter(String);
+        console.log('indexes', indexes);
+        indexes.forEach(idx => {
+          todoService.remove(idx);
+        });
       }
       // return todos;
     },

@@ -10,7 +10,7 @@ export default {
   
           <button @click="displayFilter" value="completed" class="completed filter">Completed</button>
         </div>
-        <button class="clear filter">Clear Completed</button>
+        <button  @click="displayFilter" value="complete" class="clear filter">Clear Completed</button>
        
 </div>
     `,
