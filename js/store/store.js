@@ -54,7 +54,7 @@ export const store = Vuex.createStore({
       const newFilter = JSON.parse(JSON.stringify(filter));
       console.log('newFilter', newFilter);
       state.filterBy = newFilter;
-      console.log(state.filterBy);
+      console.log('filty', state.filterBy);
     },
   },
   getters: {
@@ -70,7 +70,7 @@ export const store = Vuex.createStore({
     getTodos(state) {
       const todos = JSON.parse(JSON.stringify(state.todos));
       const filterBy = JSON.parse(JSON.stringify(state.filterBy));
-      console.log('filterBy', typeof filterBy.text);
+
       if (filterBy.text) {
         console.log('im in text');
         const regex = new RegExp(filterBy.text, 'i');
@@ -85,11 +85,13 @@ export const store = Vuex.createStore({
         const filterCompleted = todos.filter(todo => todo.isDone);
         return filterCompleted;
       } else if (filterBy.value === 'complete') {
+        console.log('im here');
         const indexes = todos.map((todo, idx) => (todo.isDone ? idx : '')).filter(String);
         console.log('indexes', indexes);
-        indexes.forEach(idx => {
-          todoService.remove(idx);
-        });
+        if (indexes.length === 0) return todos;
+        return todoService.remove(indexes);
+
+        // return todos;
       }
       // return todos;
     },

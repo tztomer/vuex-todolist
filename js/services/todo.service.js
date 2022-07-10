@@ -61,7 +61,13 @@ function save(newTodo) {
   }
 }
 
-function remove(idx) {
-  gTodos.splice(idx, 1);
+function remove(...idxs) {
+  console.log('idxs', idxs);
+  let remainTodo = [];
+  idxs.forEach(idx => {
+    gTodos.splice(idx, 1);
+  });
+  // gTodos.splice(idx, 1);
   storageService.save(STORAGE_KEY, gTodos);
+  return gTodos;
 }
